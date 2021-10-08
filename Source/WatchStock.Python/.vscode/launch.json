@@ -11,8 +11,10 @@
             "program": "setup.py",
             "console": "integratedTerminal",
             "args": [
-                "IntiKBar",
-                "2912"
+                "PlotKBar",
+                "2912",
+                "2020-08-01",
+                "2020-09-30"
             ]
         }
     ]
