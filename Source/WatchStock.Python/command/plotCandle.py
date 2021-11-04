@@ -2,40 +2,34 @@
 #cython: language_level=3
 
 from matplotlib.pyplot import savefig
-from domain.kBar import KBar
+from domain.exchangeInfo import ExchangeInfo
 from sentry_sdk.api import start_span
-
 from config import Config
 from pymongo import MongoClient
 from datetime import date, timedelta, tzinfo
 
+import datetime
 import pandas as pd
 import mplfinance as mpf
 
-import datetime
-
-
-class PlotKBar():
-    def __init__(self, config: Config, args):
+class PlotCandle():
+    def __init__(self, config: Config):
         self.config = config
-        self.name = "PlotKBar"
-        self.stockNumber = args[1]
-        self.start: datetime = datetime.datetime.strptime(args[2], "%Y-%m-%d")
-        self.end: datetime = datetime.datetime.strptime(
-            args[3], "%Y-%m-%d") + timedelta(days=1) - timedelta(microseconds=1)
+        self.name = "PlotCandle"
 
-    def execution(self):
+    def execution(self, args):
         config = self.config
-        stockNumber = self.stockNumber
-        start = self.start
-        end = self.end
+        number = args[1]
+        start: datetime = datetime.datetime.strptime(args[2], "%Y-%m-%d")
+        end : datetime = datetime.datetime.strptime(
+            args[3], "%Y-%m-%d") + timedelta(days=1) - timedelta(microseconds=1)
 
         mongoClient = MongoClient(config.mongodbUri)
         database = mongoClient[config.mongodbDataBase]
-        collection = database.KBar
+        collection = database.ExchangeInfo
 
         cursor = collection.find({
-            "stockNumber": stockNumber,
+            "number": number,
             "timestamp": {
                 "$gte": start,
                 "$lt": end
@@ -51,5 +45,5 @@ class PlotKBar():
                                         'close': 'Close',
                                         'volume': 'Volume'})
 
-        mpf.plot(pandas, savefig='./plot/{stockNumber}-{start}-{end}.jpg'.format(
-            stockNumber=stockNumber, start=start.strftime("%Y-%m-%d"), end=end.strftime("%Y-%m-%d")), type='candle')
+        mpf.plot(pandas, savefig='./Plot/{number}-{start}-{end}.jpg'.format(
+            number=number, start=start.strftime("%Y-%m-%d"), end=end.strftime("%Y-%m-%d")), type='candle')

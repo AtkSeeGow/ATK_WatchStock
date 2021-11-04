@@ -8,13 +8,11 @@
             "name": "Python",
             "type": "python",
             "request": "launch",
-            "program": "setup.py",
+            "program": "Source/WatchStock.Python/setup.py",
             "console": "integratedTerminal",
             "args": [
-                "PlotKBar",
-                "2912",
-                "2020-08-01",
-                "2020-09-30"
+                "WatchExchangeInfo",
+                "0050"
             ]
         }
     ]

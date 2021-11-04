@@ -1,12 +1,11 @@
 from datetime import datetime
 
-
-class KBar():
-    def __init__(self, row, stockNumber):
+class ExchangeInfo():
+    def __init__(self, row, code):
         self.high = row['High']
         self.low = row['Low']
         self.open = row['Open']
         self.close = row['Close']
         self.volume = row['Volume']
         self.timestamp: datetime = row['ts']
-        self.stockNumber = stockNumber
+        self.code = code
