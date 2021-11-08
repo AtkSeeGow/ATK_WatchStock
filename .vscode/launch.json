@@ -11,8 +11,9 @@
             "program": "Source/WatchStock.Python/setup.py",
             "console": "integratedTerminal",
             "args": [
-                "WatchExchangeInfo",
-                "0050"
+                "InitExchangeReport",
+                "0050",
+                "2912"
             ]
         }
     ]

@@ -4,9 +4,8 @@
 import sys
 
 from command.initExchangeInfo import InitExchangeInfo
+from command.initExchangeReport import InitExchangeReport
 from command.plotCandle import PlotCandle
-from command.watchExchangeInfo import WatchExchangeInfo
-
 from config import Config
 
 if __name__ == "__main__":
@@ -17,7 +16,7 @@ if __name__ == "__main__":
     commands = []
     commands.append(InitExchangeInfo(config))
     commands.append(PlotCandle(config))
-    commands.append(WatchExchangeInfo(config))
+    commands.append(InitExchangeReport(config))
 
     for command in commands:
         if command.name == args[0]:
